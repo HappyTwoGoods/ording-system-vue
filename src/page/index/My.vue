@@ -1,5 +1,5 @@
 <template>
-<p>hello</p>
+  <p>店铺信息</p>
 </template>
 <script>
 
