@@ -26,7 +26,7 @@
           },
           {
             'path': '/MyOrding',
-            'name': '玩转'
+            'name': '订单'
           },
           {
             'path': '/My',
@@ -55,7 +55,7 @@
     left: 0px;
     bottom: 0px;
     width: 100%;
-    .h(149);
+    .h(170);
     background: @tab-general-bg-color;
     display: block;
     footer {
@@ -65,7 +65,7 @@
       .pt(10);
       line-height: 0.8;
       width: 100%;
-      .h(98);
+      .h(170);
       display: flex;
       a {
         text-decoration: none;
@@ -92,11 +92,8 @@
           background-image: url("../assets/bar/bar-find.png");
         }
         .tab-2 {
-          background-image: url("../assets/bar/bar-play.png");
+          background-image: url("../assets/bar/bar-my.png");
         }
-        /*.tab-3 {*/
-          /*background-image: url("../assets/bar/bar-my.png");*/
-        /*}*/
         &:hover {
           text-decoration: none;
         }
@@ -108,15 +105,12 @@
             background-image: url("../assets/bar/bar-find-selected.png");
           }
           .tab-2 {
-            background-image: url("../assets/bar/bar-play-selected.png");
+            background-image: url("../assets/bar/bar-my-selected.png");
           }
-          /*.tab-3 {*/
-            /*background-image: url("../assets/bar/bar-my-selected.png");*/
-          /*}*/
         }
       }
       p {
-        margin: 0;
+        margin: 0px;
       }
     }
   }
