@@ -4,6 +4,8 @@ import Home from '@/page/index/Home'
 import MyOrding from '@/page/index/MyOrding'
 import My from '@/page/index/My'
 import Index from '@/components/Index'
+import Login from "../page/Login"
+import Register from "../page/Register"
 
 Vue.use(Router)
 
@@ -34,6 +36,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/',
       name: 'Index',
       component: Index,
       redirect: 'Home',
@@ -56,17 +63,14 @@ export default new Router({
       ]
     },
     // {
-    //   path: '/Home',
-    //   name: 'Home',
-    //   component: Home,
-    //   meta: {
-    //     title: '首页'
-    //   }
+    //   path: '/',
+    //   name: 'Login',
+    //   component: Login
     // },
-    // {
-    //   path: "/MyOrding",
-    //   name: 'MyOrding',
-    //   component: MyOrding
-    // }
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
+    }
   ]
 })
