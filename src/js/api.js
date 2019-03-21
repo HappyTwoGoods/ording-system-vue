@@ -12,14 +12,17 @@ export function service(method, url, params = {}) {
     data: 'post' === method ? qs.stringify(params) : {},
     params: 'get' === method ? params : {}
   }).then(response => {
+    console.log(response.data)
       if (response === null || response.status !== 200) {
-        MessageBox('提示', response.message);
+        // MessageBox('提示', response.message);
+        alert("请求失败！");
         console.log('请求失败');
         return null;
       }
       if (response.data.code === 401) {
-        MessageBox('提示', '您尚未登录');
-        // app.$router.replace('/user-login');
+        // MessageBox('提示', '您尚未登录');
+        alert("您尚未登录");
+        app.$router.replace('/');
         return {
           code: 200,
           message: '没有登录',
@@ -36,13 +39,15 @@ export function service(method, url, params = {}) {
 export function upload(url, params, config) {
   return axios.post('/api' + url, params, config).then(response => {
       if (response === null || response.status !== 200) {
-        MessageBox('提示', response.message);
+        // MessageBox('提示', response.message);
+        alert("请求失败!");
         console.log('请求失败');
         return null;
       }
       if (response.data.code === 401) {
-        MessageBox('提示', '您尚未登录');
-        // app.$router.replace('/user-login');
+        // MessageBox('提示', '您尚未登录');
+        alert("您尚未登录");
+        app.$router.replace('/');
         return {
           code: 200,
           message: '没有登录',

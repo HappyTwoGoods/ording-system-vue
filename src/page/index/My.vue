@@ -106,6 +106,10 @@ export default {
     queryUser(){
       service('get','/user/query/id',{
       }).then(data => {
+//        if (data.code === 403){
+//          this.$router.push({path: '/'});
+//          return
+//        }
         if (data.code !== 200) {
           alert(data.message);
           return;
