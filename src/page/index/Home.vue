@@ -200,7 +200,6 @@
       },
       getOrding() {
         for (let i = 0; i < this.goodsArray.length; i++) {
-          console.log(JSON.stringify(this.goodsArray));
           service('get', '/user/getOrder', {
             billDetail: this.goodsArray[i]
           }).then(data => {
@@ -209,6 +208,15 @@
               return;
             }
           })
+          if (i === 0){
+            let now = new Date();
+            let exitTime = now.getTime() + 5000;
+              now = new Date();
+              if (now.getTime() > exitTime) {
+                console.log(11111);
+                continue;
+              }
+          }
         }
         this.ordingInfoShow = false;
       },
