@@ -14,6 +14,9 @@
       <button class="button-style" @click="dialogShowPrice = true">充值</button>
       <button class="button-style" @click="dialogShowEdit = true">修改信息</button>
     </div>
+    <div>
+      <button class="button-style" style="margin-top: 40px; margin-left: 60%" @click="userLogout()">用户退出</button>
+    </div>
     <div class="dialog" v-show="dialogShowPrice">
       <div class="mask"></div>
       <div class="float_frame">
@@ -118,6 +121,16 @@ export default {
         this.userName = data.data.name;
         this.price = data.data.price;
         console.log(this.userData)
+      })
+    },
+    userLogout() {
+      service('get','/user/logout',{
+      }).then(data => {
+        if (data.code !== 200){
+          alert(data.message);
+          return;
+        }
+        this.$router.push({path: '/'})
       })
     }
   }
