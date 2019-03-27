@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div>
-      <img src="" class="res-img"/>
+      <img src="../../assets/my/my.jpg" class="res-img"/>
     </div>
     <div class="head-div">
       <img src="../../assets/my/title.jpg" style="width: 100%; height: 100%; border-radius: 50%"/>
@@ -12,7 +12,7 @@
     </div>
     <div class="button-div">
       <button class="button-style" @click="dialogShowPrice = true">充值</button>
-      <button class="button-style" @click="dialogShowEdit = true">修改信息</button>
+      <button class="button-style" @click="dialogShowEdit1 = true">修改信息</button>
     </div>
     <div>
       <button class="button-style" style="margin-top: 40px; margin-left: 60%" @click="userLogout()">用户退出</button>
@@ -35,7 +35,7 @@
       <div class="float_frame">
         <div>
           <label>请输入密码：</label><br/>
-          <input style="margin-top: 20px" v-model="password"/>
+          <input style="margin-top: 20px" type="password" v-model="password"/>
         </div>
         <div class="click_div">
           <div class="click_left" @click="dialogShowPassword=false"><p class="p_style">取消</p></div>
@@ -48,11 +48,11 @@
       <div class="float_frame">
         <div>
           <label>请输入旧密码：</label><br/>
-          <input style="margin-top: 20px" v-model="password"/>
+          <input style="margin-top: 20px" type="password" v-model="password"/>
         </div>
         <div class="click_div">
-          <div class="click_left" @click="dialogShowPassword=false"><p class="p_style">取消</p></div>
-          <div class="click_right" @click="clickRight()"><p class="p_style">确定</p></div>
+          <div class="click_left" @click="dialogShowEdit1=false"><p class="p_style">取消</p></div>
+          <div class="click_right" @click="dialogShowEdit1 = false; dialogShowEdit2 = true"><p class="p_style">确定</p></div>
         </div>
       </div>
     </div>
@@ -61,13 +61,13 @@
       <div class="float_frame">
         <div>
           <label>请输入新密码：</label><br/>
-          <input style="margin-top: 20px" v-model="password"/>
+          <input style="margin-top: 20px" type="password" v-model="newPassword"/><br/>
           <label>确认密码：</label><br/>
-          <input style="margin-top: 20px" v-model="passwordAgain"/>
+          <input style="margin-top: 20px" type="password" v-model="passwordAgain"/>
         </div>
-        <div class="click_div">
-          <div class="click_left" @click="dialogShowPassword=false"><p class="p_style">取消</p></div>
-          <div class="click_right" @click="clickRight()"><p class="p_style">确定</p></div>
+        <div class="click_div_updatePrice">
+          <div class="click_left" @click="dialogShowEdit2=false"><p class="p_style">取消</p></div>
+          <div class="click_right" @click="updatePassword()"><p class="p_style">确定</p></div>
         </div>
       </div>
     </div>
@@ -87,6 +87,7 @@ export default {
       money: 0,
       password: 0,
       passwordAgain: 0,
+      newPassword: 0,
       userData: null
     }
   },
@@ -103,16 +104,13 @@ export default {
           alert(data.message);
           return;
         }
-        console.log("充值成功！")
+        console.log("充值成功！");
+        parent.location.reload();
       })
     },
     queryUser(){
       service('get','/user/query/id',{
       }).then(data => {
-//        if (data.code === 403){
-//          this.$router.push({path: '/'});
-//          return
-//        }
         if (data.code !== 200) {
           alert(data.message);
           return;
@@ -132,6 +130,19 @@ export default {
         }
         this.$router.push({path: '/'})
       })
+    },
+    updatePassword() {
+      service('get','/user/updatePassword',{
+        password: this.password,
+        newPassword: this.newPassword
+      }).then(data => {
+        if (data.code !== 200) {
+          alert(data.message);
+          return;
+        }
+        alert("修改成功！");
+        this.$router.push({path: '/'})
+      })
     }
   }
 }
@@ -140,7 +151,7 @@ export default {
   .body {
     width: 100%;
     height: 100%;
-    background-color: #7e8c8d;
+    background-color: gainsboro;
   }
 
   .res-img{
@@ -152,7 +163,7 @@ export default {
   .my-div {
     width: 70%;
     height: 200px;
-    background-color: darksalmon;
+    background-color: #eb415b;
     border-radius: 15%;
     margin-left: 14%;
     margin-top: -50px;
@@ -204,6 +215,13 @@ export default {
     height: 40px;
     margin-top: 98px;
   }
+
+  .click_div_updatePrice{
+    width: 100%;
+    height: 40px;
+    margin-top: 38px;
+  }
+
   .click_left {
     float: left;
     width: 49%;

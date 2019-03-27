@@ -7,7 +7,7 @@
           <div class="ording-div">{{ording.goodsId}}</div>
           <div class="ording-div">{{ording.num}}</div>
           <div class="ording-div">{{ording.price}}</div>
-          <div class="ording-div">{{ording.status == 0 ? '下单' : '完成'}}</div>
+          <div class="ording-div">{{ording.status == 0 ? '取消' : ording.status == 1 ? '下单' : '完成'}}</div>
           <div class="ording-div"><button class="button-style" @click="cancelOrding(ording.id)">取消</button></div>
         </div>
       </div>
@@ -63,6 +63,7 @@
             return;
           }
           alert("取消成功！");
+          parent.location.reload();
         })
       },
       queryPrice(){
@@ -85,6 +86,7 @@
             return;
           }
           alert("结账完成！");
+          parent.location.reload();
         })
       }
     },

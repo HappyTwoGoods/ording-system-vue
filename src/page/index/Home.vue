@@ -28,7 +28,7 @@
       <div v-for="(result, index) in searchBack" class="box">
         <div class="content">
           <div class="img_div">
-            <img src="../../assets/home/111.jpg" class="image_style"/>
+            <img :src="result.image" alt="图片加载中" class="image_style"/>
           </div>
           <div class="info_div">
             <h5 class="h5_brand_name">{{result.name}}</h5>
@@ -60,7 +60,13 @@
     <div class="dialog" v-show="ordingInfoShow">
       <div class="mask"></div>
       <div class="float_frame_ordingInfo">
-        <h2>所选菜品：</h2>
+        <h3>所选菜品：</h3>
+        <select id="selectId">
+          <option selected>请选择餐桌</option>
+          <option v-for="desk in deskInfo" class="desk-div">
+            {{desk.deskNum}}
+          </option>
+        </select>
         <div class="center-ording-div">
           <div v-for="(goods,index) in goodsArray" class="goods-list">
             <div class="little-div">{{goods.goodsName}}</div>
@@ -117,12 +123,14 @@
             value: '烧烤'
           },
         ],
-        goodsArray:[]
+        goodsArray:[],
+        deskInfo: null
       }
     },
     mounted() {
       this._initSwiper();
       this.queryGoods();
+      this.getDeskInfo();
     },
     methods: {
       _initSwiper() {
@@ -199,9 +207,15 @@
         })
       },
       getOrding() {
+        let deskNum = document.getElementById("selectId").value;
+        if (deskNum === "请选择餐桌"){
+          alert("请选择您的餐桌！");
+          return;
+        }
         for (let i = 0; i < this.goodsArray.length; i++) {
           service('get', '/user/getOrder', {
-            billDetail: this.goodsArray[i]
+            billDetail: this.goodsArray[i],
+            deskNum: deskNum
           }).then(data => {
             if (data.code !== 200) {
               alert(data.message);
@@ -221,6 +235,17 @@
             break;
           }
         }
+      },
+      getDeskInfo(){
+        service('get','/user/selectAll',{
+        }).then(data => {
+          if (data.code !== 200) {
+            alert(data.message);
+            return;
+          }
+          this.deskInfo = data.data;
+          console.log(this.deskInfo);
+        })
       },
       getId(id){
         console.log(id);
